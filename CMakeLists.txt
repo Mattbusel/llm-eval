@@ -4,6 +4,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(CURL REQUIRED)
 
-add_executable(basic_eval examples/basic_eval.cpp)
-target_include_directories(basic_eval PRIVATE include)
-target_link_libraries(basic_eval CURL::libcurl)
+foreach(ex basic_eval compare_models)
+    add_executable(${ex} examples/${ex}.cpp)
+    target_include_directories(${ex} PRIVATE include)
+    target_link_libraries(${ex} CURL::libcurl)
+    target_compile_options(${ex} PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:/W4>
+        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall>
+        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wextra>
+    )
+endforeach()

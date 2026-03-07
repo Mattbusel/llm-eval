@@ -1,4 +1,5 @@
 #pragma once
+#define NOMINMAX
 
 // llm_eval.hpp — Zero-dependency single-header C++ LLM evaluation library.
 // Run prompts N times, measure variance, compare models, score responses.
